@@ -1,0 +1,14 @@
+extends ../layout
+
+block content
+  .container
+    h1.page-header= post.title
+    p
+      b by #{post.email}
+      | 
+      span at #{moment(post.createdAt).format('YYYY-MM-DD HH:mm:ss')} 
+      | 
+      | (조회수 #{post.read})
+    p.well(style='white-space:pre;')= post.content
+    
+    a.btn.btn-default(href='/posts') 목록

@@ -1,0 +1,26 @@
+extends ../layout
+
+block content
+  .container
+    if post.id
+      h1.page-header 글수정
+    else
+      h1.page-header 글쓰기
+
+    form(action = (post.id) ? "/posts/#{post.id}?_method=PUT" : "/posts", method='POST')
+      .form-group
+        label(for='email') Email address
+        input.form-control(type='email', id='email', name='email', placeholder='Email', value=post.email)
+        label(for='password') Password
+        input.form-control(type='password', id='password', name='password', placeholder='Password')
+      .form-group
+        label(for='title') Title
+        input.form-control(type='text', id='title', name='title', placeholder='title', value=post.title)
+      .form-group
+        label(for='content') Content
+        textarea.form-control(id='content', rows='10', name='content', placeholder='content here')= post.content
+
+      div.form-actions
+        a.btn.btn-default(href='javascript:window.history.back();') 뒤로 
+        | 
+        button.btn.btn-primary(type='submit') 완료

@@ -15,12 +15,20 @@
         li
           a(href='/users') Users
       ul.nav.navbar-nav.navbar-right
-        if (currentUser) 
+        if (currentUser)
+          li
+            a(href='/posts') Hosting
+          li
+            a(href='/signin') Trip
           li
             a(href='/users/#{currentUser._id}') Profile
           li
             a(href='/signout') Signout
         else
+          li
+            a(href='/posts') Hosting
+          li
+            a(href='/signin') Trip
           li
             a(href='/signin') Signin
           li
