@@ -1,16 +1,34 @@
 extends layout
 
+
 block content
-  #main.container.loading
-    .row
-      .col-sm-9
-        include ./includes/todo-mai
-      .col-sm-3.side
-        include ./includes/todo-side
-    .spinner
-      .background
-      .foreground
-        p
-          i.fa.fa-circle-o-notch.fa-spin.fa-4x
-        p Loading...
-  script(type='text/javascript', src='/javascripts/todos.js')
+  .container
+    h1 숙소 등록
+  
+    form(action='/host', method='POST')
+      .form-group
+        label(for='title') 제목
+        input.form-control(name='title')
+      .form-group
+        label(for='content') 내용
+        textarea.form-control(name='content')
+      .form-group
+        label(for='address') 주소
+        input.form-control(name='address')
+      .form-group
+       label(for='charge') 숙소요금
+       input.form-control(name='charge')
+      .form-group
+        label(for='infrastructure') 주요시설
+        input.form-control(name='infrastructure')
+      .form-group
+        label(for='facility') 편의시설
+        input.form-control(name='facility')
+      .form-group
+        label(for='rule') 이용규칙
+        input.form-control(name='rule')
+      
+      .form-action
+        a.btn.btn-default(href='javascript:window.history.back();') 뒤로 
+        | &nbsp;
+        button.btn.btn-primary(type='submit') 글작성

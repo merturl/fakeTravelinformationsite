@@ -6,16 +6,21 @@ block hero-unit
       h1 BNB-AIR
 
 block content
-  .container
-    .row
-      .col-md-6
-        h3 서비스 목적
-        p 본 서비스는 웹프로그래밍 수업을 위해서 sample로 만들어보는 것입니다. 
-      .col-md-6
-        h3 주요 기능
-        ul
-          li 사용자 관리
-          li 할 일 기록
-          li 기록 내용: 분류, 내용, 중요도, deadline
-          li 완료된 일 체크
+  h1 게시판
   
+  table.table
+    tr
+      th 제목
+      th 작성자
+      th 댓글
+      th 작성일
+    each post in posts
+      tr
+        td
+          a(href='/posts/#{post.id}')= post.title
+        td= post.email
+        td= post.numComment
+        td= moment(post.createdAt).format('YYYY/MM/DD')
+
+
+  a.btn.btn-primary(href='/posts/new') 글작성

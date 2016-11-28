@@ -103,6 +103,13 @@ form.todos {
     margin-bottom: 1em;
     width: 100%;
     box-sizing: border-box; }
+  form.todos .main input[type='textarea'] {
+    font-size: 1.4em;
+    border: 1px solid #2c9cd2;
+    padding: 0.5em 1em;
+    margin-bottom: 1em;
+    width: 100%;
+    box-sizing: border-box; }
   form.todos .actions button {
     margin-top: 1em; }
 
