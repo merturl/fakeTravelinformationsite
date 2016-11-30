@@ -6,17 +6,40 @@ block hero-unit
       h1 BNB-AIR
 
 block content
-  #main.container.loading
-    .row
-      .col-sm-9
-        include ./includes/todo-main
-      .col-sm-3.side
-        include ./includes/todo-side
-    .spinner
-      .background
-      .foreground
-        p
-          i.fa.fa-circle-o-notch.fa-spin.fa-4x
-        p Loading...
-  script(type='text/javascript', src='/javascripts/todos.js')
+  #main.container
+    .form
+      .col-sm-3
+        input.form-control(type='text', id='q', size=20, placeholder='위치')
+      .col-sm-3
+        input.form-control(type='text', id='q', size=20, placeholder='날짜')
+      .col-sm-3
+        input.form-control(type='text', id='q', size=20, placeholder='인원')
+        
+      i.fa.fa-spin.fa-spinner
+      ul.suggest-box
+      br
 
+
+    h1 숙소
+    table.table
+      tr
+        th 제목
+        th 내용
+        th 작성일
+        th 주소
+        th 숙소요금
+        th 편의시설
+        th 이용규칙
+      each post in posts
+        tr
+          td
+            a(href='/posts/#{post.id}')= post.title
+          td= post.content
+          td= moment(post.createdAt).format('YYYY/MM/DD')
+          td= post.address
+          td= post.charge
+          td= post.infrastructure
+          td= post.facility
+          td= post.rule
+
+script(type='text/javascript', src='/javascripts/day.js')
