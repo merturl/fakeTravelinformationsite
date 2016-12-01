@@ -58,7 +58,7 @@ var TaskController = function() {
     }
     return true;
   };
-
+//tasks 처음 진입시 랜더링 해줌
   Constructor.prototype.load = function() {
     var self = this;
     $.getJSON("/tasks", function(data) {
