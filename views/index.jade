@@ -6,7 +6,7 @@ block hero-unit
       h1 BNB-AIR
 
 block content
-  #main.container
+  .container
     .form
       .col-sm-3
         input.form-control(type='text', id='q', size=20, placeholder='위치')
@@ -30,16 +30,16 @@ block content
         th 숙소요금
         th 편의시설
         th 이용규칙
-      each post in posts
+      each host in hosts
         tr
           td
-            a(href='/posts/#{post.id}')= post.title
-          td= post.content
-          td= moment(post.createdAt).format('YYYY/MM/DD')
-          td= post.address
-          td= post.charge
-          td= post.infrastructure
-          td= post.facility
-          td= post.rule
+            a(href='/host/#{host.id}')= host.title
+          td= host.content
+          td= moment(host.createdAt).format('YYYY/MM/DD')
+          td= host.address
+          td= host.charge
+          td= host.infrastructure
+          td= host.facility
+          td= host.rule
 
 script(type='text/javascript', src='/javascripts/day.js')

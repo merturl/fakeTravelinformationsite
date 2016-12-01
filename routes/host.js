@@ -1,5 +1,6 @@
 var express = require('express');
 var Host = require('../models/Host');//Post를 사용
+var Comment = require('../models/comment');
 var router = express.Router();
 
 
@@ -31,6 +32,40 @@ function validateForm(form, options) {
   return null;
 }
 
+
+router.get('/:id', function(req, res, next) {
+  Host.findById(req.params.id, function(err, post) {
+    if (err) {
+      return next(err);
+    }
+    Comment.find({post: post.id}, function(err, comments) {
+      if (err) {
+        return next(err);
+      }
+      res.render('host/show', {host: post, comments: comments});
+    });
+  });
+});
+
+router.post('/:id/comments', function(req, res, next) {
+  var comment = new Comment({
+    post: req.params.id,
+    email: req.body.email,
+    content: req.body.content
+  });
+
+  comment.save(function(err) {
+    if (err) {
+      return next(err);
+    }
+    Post.findByIdAndUpdate(req.params.id, {$inc: {numComment: 1}}, function(err) {
+      if (err) {
+        return next(err);
+      }
+      res.redirect('/host/' + req.params.id);
+    });
+  });
+});
 //url이 /posts에 들어온 경우 gusestbook 디렉토리의 posts/index 파일을 렌더링 해준다.
 router.get('/', function(req, res, next) {
   // Post.find({}, function(err, posts) {
@@ -47,18 +82,18 @@ router.get('/new', function(req, res, next) {
   res.render('posts/edit', {post: Post});
 });
 
-//url이 /posts/id에 들어올시 gusestbook 디렉토리의 posts/show 파일을 렌더링해 해당 id에 맞는 글의 상세내용을 보여줌.
-router.get('/:id', function(req, res, next) {
-  Post.findById(req.params.id, function(err, post) {
-    if (err) {
-      return next(err);
-    }
-    //글이 클릭 될시 read값이 증가(조회수가 증가)
-    post.read++;
-    post.save();
-    res.render('posts/show', {post: post});
-  });
-});
+// //url이 /posts/id에 들어올시 gusestbook 디렉토리의 posts/show 파일을 렌더링해 해당 id에 맞는 글의 상세내용을 보여줌.
+// router.get('/:id', function(req, res, next) {
+//   Host.findById(req.params.id, function(err, host) {
+//     if (err) {
+//       return next(err);
+//     }
+//     //글이 클릭 될시 read값이 증가(조회수가 증가)
+//     host.read++;
+//     host.save();
+//     res.render('host/show', {host: post});
+//   });
+// });
 
 
 //url이 /posts/id/edit에 들어올시  gusestbook 디렉토리의 posts/edit 파일을 렌더링해 해당 id에 맞는 글을 수정 하는 페이지를 보여줌.

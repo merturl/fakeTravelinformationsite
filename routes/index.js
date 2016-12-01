@@ -19,7 +19,7 @@ router.get('/', function(req, res, next) {
     if (err) {
       return next(err);
     }
-    res.render('index', {posts: docs});
+    res.render('index', {hosts: docs});
   });
 });
 module.exports = router;

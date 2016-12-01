@@ -2,13 +2,31 @@ extends ../layout
 
 block content
   .container
-    h1.page-header= post.title
-    p
-      b by #{post.email}
-      | 
-      span at #{moment(post.createdAt).format('YYYY-MM-DD HH:mm:ss')} 
-      | 
-      | (조회수 #{post.read})
-    p.well(style='white-space:pre;')= post.content
+    h1= host.title
+    h3 by #{host.email}
+    .well= host.content
     
-    a.btn.btn-default(href='/posts') 목록
+    hr
+    h3 Comment (#{host.numComment})
+    table.table
+      tr
+        th email
+        th content
+        th time
+      each comment in comments
+        tr
+          td= comment.email
+          td= comment.content
+          td= moment(comment.createdAt).format('YYYY/MM/DD')
+    
+    form.form-inline(action='/host/' + host._id + '/comments', method='POST')
+      .form-group
+        label.sr-only(for='email') email
+        input.form-control(name='email', placeholder='email')
+      .form-group
+        label.sr-only(for='content') content
+        input.form-control(name='content', size=50, placeholder='content')
+      button.btn.btn-info 댓글저장
+      
+    hr
+    a.btn.btn-default(href='/') 목록 
