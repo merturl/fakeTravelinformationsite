@@ -3,7 +3,14 @@ var Host = require('../models/Host');//Post를 사용
 var Comment = require('../models/comment');
 var router = express.Router();
 
-
+function needAuth(req, res, next) {
+  if (req.isAuthenticated()) {
+    next();
+  } else {
+    req.flash('danger', '로그인이 필요합니다.');
+    res.redirect('/signin');
+  }
+}
 //게시글 작성시 form의 입력 유무 에러처리
 function validateForm(form, options) {
   var title = form.title || "";
@@ -58,7 +65,7 @@ router.post('/:id/comments', function(req, res, next) {
     if (err) {
       return next(err);
     }
-    Post.findByIdAndUpdate(req.params.id, {$inc: {numComment: 1}}, function(err) {
+    Host.findByIdAndUpdate(req.params.id, {$inc: {numComment: 1}}, function(err) {
       if (err) {
         return next(err);
       }

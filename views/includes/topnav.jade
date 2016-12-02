@@ -10,10 +10,12 @@
         i.fa.fa-home
     #navbar.collapse.navbar-collapse
       ul.nav.navbar-nav
-        li
-          a(href='/todos') Todo List
-        li
-          a(href='/users') Users
+        if (currentUser)
+         if(currentUser.name == "Admin")
+          li
+            a(href='/todos') Todo List
+          li
+            a(href='/users') Users
       ul.nav.navbar-nav.navbar-right
         if (currentUser)
           li
@@ -33,4 +35,6 @@
             a(href='/signin') Signin
           li
             a(href='/users/new') Signup
+        
+        
           

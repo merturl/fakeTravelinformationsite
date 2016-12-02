@@ -1,17 +1,20 @@
 var express = require('express');
-var Host = require('../models/Host');//Post를 사용
+var Host = require('../models/Host');//
 var router = express.Router();
-
-/* GET home page. */
-// router.get('/', function(req, res, next) {
-//   res.render('index');
-// });
+function needAuth(req, res, next) {
+  if (req.isAuthenticated()) {
+    next();
+  } else {
+    req.flash('danger', '로그인이 필요합니다.');
+    res.redirect('/signin');
+  }
+}
 
 router.get('/signin', function(req, res, next) {
   res.render('signin');
 });
 
-router.get('/host', function(req, res, next) {
+router.get('/host', needAuth, function(req, res, next) {
     res.render('host');
 });
 router.get('/', function(req, res, next) {

@@ -30,7 +30,7 @@ if (app.get('env') === 'development') {
 app.locals.moment = require('moment');
 
 // mongodb connect
-mongoose.connect('mongodb://merturl:rla920501@ds143707.mlab.com:43707/merturl');
+mongoose.connect('mongodb://jonghyeon:qwert12345@ds115918.mlab.com:15918/jonghyeon');
 mongoose.connection.on('error', console.log);
 
 // uncomment after placing your favicon in /public
