@@ -13,6 +13,7 @@ var schema = new Schema({
   facility: {type: String},//편의시설
   rule: {type: String},//이용규칙
   read: {type: Number, default: 0},//조회수
+  user: {type: Schema.Types.ObjectId, index: true, required: true},
 }, {
   toJSON: { virtuals: true},
   toObject: {virtuals: true}

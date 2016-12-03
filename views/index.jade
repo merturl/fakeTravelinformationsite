@@ -8,6 +8,7 @@ block hero-unit
 block content
   .container
     .form
+      h1 숙소 검색
       .col-sm-3
         input.form-control(type='text', id='q', size=20, placeholder='위치')
       .col-sm-3
@@ -33,7 +34,7 @@ block content
         tr
           td
             a(href='/host/#{host.id}')= host.title
-          td= host.content
+          td= host.user
           td= moment(host.createdAt).format('YYYY/MM/DD')
           td= host.address
           td= host.charge

@@ -123,7 +123,7 @@ router.get('/:id/edit', function(req, res, next) {
   Post.findById({_id: req.params.id}, function(err, post) {
     if (err) {
       return next(err);
-    }
+    }hy
     if (!post) {
       return res.redirect('back');
     }
@@ -157,7 +157,7 @@ router.delete('/:id', function(req, res, next) {
  router.post('/', function(req, res, next) {
   var err = validateForm(req.body, {needPassword: true});
   if (err) {
-    //res.send(err);
+    res.send(err);
     return res.redirect('back');
   }
   // Post.findOne({email: req.body.email}, function(err, post) { 중복된 이메일 사용 불가.
@@ -170,8 +170,10 @@ router.delete('/:id', function(req, res, next) {
     //새로운 스키마 작성 Model에 require 된 값들은 New할시 생성해주어야 함.
     var newHost = new Host({
       title: req.body.title,
+      user: req.user.id,
     });
     newHost.content = req.body.content;
+    newHost.charge = req.body.charge;
     newHost.address = req.body.address;
     newHost.save(function(err) {
       if (err) {
