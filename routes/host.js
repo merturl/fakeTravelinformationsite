@@ -1,6 +1,6 @@
 var express = require('express');
 var Host = require('../models/Host');//Post를 사용
-var Comment = require('../models/comment');
+var Comment = require('../models/Comment');
 var router = express.Router();
 
 function needAuth(req, res, next) {
