@@ -34,12 +34,24 @@ block content
         tr
           td
             a(href='/host/#{host.id}')= host.title
-          td= host.user
+          td= host.content
           td= moment(host.createdAt).format('YYYY/MM/DD')
           td= host.address
           td= host.charge
           td= host.infrastructure
           td= host.facility
           td= host.rule
-
+            a.btn.btn-xs.btn-default(href='') 예약
+            | 
+            a.btn.btn-xs.btn-default(data-id=host.id, class='delete') 취소
+          
+form#deleteForm(style='display:none', method="POST")       
+script(type='text/javascript').
+  $(".delete").click(function(e) {
+    var id = $(e.currentTarget).data('id');
+    if (confirm('정말 삭제하시겠습니까?')) {
+      $("#deleteForm").attr('action', "/host/" + id + "?_method=DELETE").submit();          
+    }
+    return false;
+  });
 script(type='text/javascript', src='/javascripts/day.js')

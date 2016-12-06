@@ -1,6 +1,7 @@
 var express = require('express');
 var Host = require('../models/Host');//Post를 사용
 var Comment = require('../models/Comment');
+var User = require('../models/User')
 var router = express.Router();
 
 function needAuth(req, res, next) {
@@ -39,9 +40,17 @@ function validateForm(form, options) {
   return null;
 }
 
+router.get('/res', needAuth, function(req, res, next) {
+  Host.find({user: req.user.id}, function(err, posts) {
+    if (err) {
+      return next(err);
+    }
+    res.render('host/index', {posts: posts});
+  });
+});
 
 router.get('/:id', function(req, res, next) {
-  Host.findById(req.params.id, function(err, post) {
+  Host.findById(req.user.id, function(err, post) {
     if (err) {
       return next(err);
     }
@@ -69,9 +78,17 @@ router.post('/:id/comments', function(req, res, next) {
       if (err) {
         return next(err);
       }
-      req.flash('suceess', req.params.id);
       res.redirect('/host/' + req.params.id);
     });
+  });
+});
+
+router.delete('/:id', function(req, res, next) {
+  Host.findOneAndRemove({_id: req.params.id}, function(err) {
+    if (err) {
+      return next(err);
+    }
+    res.redirect('/host/res');
   });
 });
 

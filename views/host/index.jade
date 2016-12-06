@@ -2,7 +2,7 @@ extends ../layout
 
 block content
   .container
-    h1.page-header List
+    h1.page-header 나의 예약 목록
     
     table.table.table-bordered
       thead
@@ -25,8 +25,6 @@ block content
               | 
               a.btn.btn-xs.btn-default(data-id=post.id, class='delete') 삭제
 
-    a.btn.btn-primary(href='/posts/new') 글쓰기
-
 
     form#deleteForm(style='display:none', method="POST")
             
@@ -34,7 +32,7 @@ block content
       $(".delete").click(function(e) {
         var id = $(e.currentTarget).data('id');
         if (confirm('정말 삭제하시겠습니까?')) {
-          $("#deleteForm").attr('action', "/posts/" + id + "?_method=DELETE").submit();          
+          $("#deleteForm").attr('action', "/host/" + id + "?_method=DELETE").submit();          
         }
         return false;
       });

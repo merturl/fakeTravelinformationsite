@@ -12,8 +12,8 @@ block content
           img.img-circle(src='#{user.facebook.photo}')
     hr
     p
-      a.btn.btn-default(href='/users/') 목록
+      a.btn.btn-default(href='/host/res') 호스팅 목록
       | 
-      a.btn.btn-default(href='/users/#{user._id}/edit') 수정
+      a.btn.btn-default(href='/users/#{user._id}/edit') 예약 수정
       | 
-      a.btn.btn-default(href='/users/#{user._id}?_method=DELETE') 삭제
+      a.btn.btn-default(href='/users/#{user._id}?_method=DELETE') 예약 삭제
