@@ -21,8 +21,7 @@ block content
               a(href='/host/#{host.id}')= host.title
             td= moment(host.createdAt).format('YYYY-MM-DD HH:mm:ss')
             td= host.read
-            td
-              a(href='/host/#{host.id}')= host.reservation
+            td= host.reservation
             td
               a.btn.btn-sm.btn-primary(href='/host/#{host.id}/edit') 수정
               | 

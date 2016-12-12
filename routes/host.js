@@ -106,13 +106,12 @@ router.get('/:id/edit', function(req, res, next) {
   });
 });
 
- router.put('/:id/edit', function(req, res, next) {
+ router.put('/:id', function(req, res, next) {
   var err = validateForm(req.body, {needPassword: true});//validaform에서 null이 아닌 값이 전달될시 redirect(back) 함
   if (err) {
     req.flash('danger', err);
     return res.redirect('back');
   }
-  //DB의 Post에서 Id를 찾아 비밀번호를 비교 맞을시 해당 Id의 내용들을 수정 하고 저장함.
   Host.findById({_id: req.params.id}, function(err, host) {
     if (err) {
       return next(err);
@@ -120,22 +119,22 @@ router.get('/:id/edit', function(req, res, next) {
     if (!host) {
       return res.redirect('back');
     }
-    //기존에 입력된 비밀 번호와 폼에 입력된 비밀번호가 같아야지만 수정 가능.
-    title= req.body.title
-    content = req.body.content || "내용 없음";
-    city = req.body.city;
-    charge = req.body.charge;
-    address = req.body.address;
-    facility = req.body.facility || "없음";
-    rule = req.body.rule || "없음";
-    persons = req.body.persons;
-    checkin = req.body.checkin;
-    checkout = req.body.checkout;
+    host.title= req.body.title
+    host.content = req.body.content || "내용 없음";
+    host.city = req.body.city;
+    host.charge = req.body.charge;
+    host.address = req.body.address;
+    host.facility = req.body.facility || "없음";
+    host.rule = req.body.rule || "없음";
+    host.persons = req.body.persons;
+    host.checkin = req.body.checkin;
+    host.checkout = req.body.checkout;
+    host.reservation = "예약가능";
     host.save(function(err) {
       if (err) {
         return next(err);
       }
-      res.redirect('/',{host: host});
+      res.redirect('/');
     });
   });
 });

@@ -54,6 +54,10 @@ router.get('/new', function(req, res, next) {
   res.render('users/new', {messages: req.flash()});
 });
 
+router.get('/reset-password', function(req, res, next) {
+  res.render('users/new', {messages: req.flash()});
+});
+
 router.get('/:id/edit', function(req, res, next) {
   User.findById(req.params.id, function(err, user) {
     if (err) {
@@ -106,7 +110,7 @@ router.delete('/:id', function(req, res, next) {
       return next(err);
     }
     req.flash('success', '사용자 계정이 삭제되었습니다.');
-    res.redirect('/users');
+    res.redirect('/');
   });
 });
 

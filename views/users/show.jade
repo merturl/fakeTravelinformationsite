@@ -26,4 +26,15 @@ block content
     p
       a.btn.btn-default(href='/users/#{user._id}/edit') 비밀번호 변경
       | 
-      a.btn.btn-default(href='/users/#{user._id}?_method=DELETE') 계정 삭제
+      a.btn.btn-sm.btn-danger(data-id=user.id, class='delete') 삭제
+      //a.btn.btn-default(href='/users/#{user.id}?_method=DELETE') 계정 삭제
+
+    form#deleteForm(style='display:none', method="POST")
+    script(type='text/javascript').
+      $(".delete").click(function(e) {
+        var id = $(e.currentTarget).data('id');
+        if (confirm('정말 삭제하시겠습니까?')) {
+          $("#deleteForm").attr('action', "/users/" + id + "?_method=DELETE").submit();          
+        }
+        return false;
+      });

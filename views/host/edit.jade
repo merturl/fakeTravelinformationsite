@@ -8,7 +8,7 @@ block content
     else
       h1.page-header 숙소 예약
       
-    form(action = (!host.id) ? "/host/#{host.id}?_method=PUT" : "'/host'", method='POST')
+    form(action = (host.id) ? "/host/#{host.id}?_method=PUT" : "'/host'", method='POST')
       .form-group
         label(for='title') 제목
         input.form-control(name='title')

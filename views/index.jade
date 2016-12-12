@@ -15,14 +15,16 @@ block content
       br
       script(type='text/javascript', src='/javascripts/autocomplete.js')
 
-    h1 숙소
+    h1 추천 숙소
       br
       br
       each host in hosts
         .col-sm-5q.col-md-3
           a.thumbnail(href='/host/#{host.id}')
             img.img-responsive(src="http://cfile25.uf.tistory.com/image/2712484255E46EF4130A55")
-          h5 #{host.city}에 위치한 #{host.charge}
+          h5 #{host.charge}원 #{host.city}에 위치한 
+          | 
+          h5 댓글#{host.numComment}개, 조회수 #{host.read}회
           | 
           a.btn.btn-lm.btn-primary(href='/reserve/#{host.id}') 예약
           p

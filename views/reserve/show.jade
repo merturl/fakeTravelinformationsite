@@ -10,11 +10,28 @@ block content
         th 가격
         th 체크인
         th 체크아웃
+        th 예약 상태
+        th
       each reservation in reservations
         tr
-          td= reservation.email
+          td= reservation.hostemail
+          td
+            a(href='/host/#{reservation.post}')= reservation.title
+          td #{reservation.charge}원
+          td= moment(reservation.checkin).format('YYYY-MM-DD HH:mm:ss')
+          td= moment(reservation.checkout).format('YYYY-MM-DD HH:mm:ss')
           td= reservation.reserveState
-          td= reservation.post
           td 
-            a.btn.btn-default(href='/host/myhosting') 취소
-    
+             a.btn.btn-sm.btn-primary(href='/reserve/#{reservation.id}/edit') 예약 수정
+             | 
+             a.btn.btn-sm.btn-danger(data-id=reservation.id, class='delete') 취소
+
+    form#deleteForm(style='display:none', method="POST")
+    script(type='text/javascript').
+      $(".delete").click(function(e) {
+        var id = $(e.currentTarget).data('id');
+        if (confirm('정말 취소하시겠습니까?')) {
+          $("#deleteForm").attr('action', "/reserve/" + id + "?_method=DELETE").submit();          
+        }
+        return false;
+      });

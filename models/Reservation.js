@@ -3,6 +3,7 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var schema = new Schema({
+  title: {type: String, index: true}, //제목
   post: {type: Schema.Types.ObjectId, index: true, required: true, trim: true},//포스트 번호
   user: {type: Schema.Types.ObjectId, index: true, required: true},//예약자 유저
   hostuser: {type: Schema.Types.ObjectId, index: true, required: true},//관리자 유저
