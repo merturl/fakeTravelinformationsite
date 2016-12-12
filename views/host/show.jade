@@ -5,7 +5,8 @@ block content
     h1= host.title
     h3 by #{host.email}
     .well= host.content
-    
+    #map(style='width:100%;height:350px;')
+    script(type='text/javascript', src='/javascripts/map.js')
     hr
     h3 Comment (#{host.numComment})
     table.table
@@ -30,3 +31,5 @@ block content
       
     hr
     a.btn.btn-default(href='/') 목록 
+      script.
+       

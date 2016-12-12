@@ -9,21 +9,24 @@ block content
         tr
           th 이메일
           th 제목
-          th 날짜
+          th 작성일
           th 조회수
-          th
+          th 예약 상황
+          th 관리
       tbody
-        each post in posts
+        each host in hosts
           tr
-            td= post.email
+            td= host.email
             td
-              a(href='/posts/#{post.id}')= post.title
-            td= moment(post.createdAt).format('YYYY-MM-DD HH:mm:ss')
-            td= post.read
+              a(href='/host/#{host.id}')= host.title
+            td= moment(host.createdAt).format('YYYY-MM-DD HH:mm:ss')
+            td= host.read
             td
-              a.btn.btn-xs.btn-default(href='/posts/#{post.id}/edit') 수정
+              a(href='/host/#{host.id}')= host.reservation
+            td
+              a.btn.btn-sm.btn-primary(href='/host/#{host.id}/edit') 수정
               | 
-              a.btn.btn-xs.btn-default(data-id=post.id, class='delete') 삭제
+              a.btn.btn-sm.btn-danger(data-id=host.id, class='delete') 삭제
 
 
     form#deleteForm(style='display:none', method="POST")
@@ -36,4 +39,3 @@ block content
         }
         return false;
       });
-

@@ -13,28 +13,30 @@
         if (currentUser)
          if(currentUser.name == "Admin")
           li
-            a(href='/todos') Todo List
-          li
-            a(href='/users') Users
+            a(href='/users') 유저 목록
       ul.nav.navbar-nav.navbar-right
         if (currentUser)
           li
-            a(href='/host') Hosting
+            a(href='/host') 숙소 등록
           li
-            a(href='/host') Trip
+            a(href='/host/myhosting') 내 호스팅
           li
-            a(href='/users/#{currentUser._id}') Profile
+            a(href='/reserve') 예약 목록
           li
-            a(href='/signout') Signout
+            a(href='/users/#{currentUser._id}') 프로필
+          li
+            a(href='/signout') 로그아웃
         else
           li
-            a(href='/host') Hosting
+            a(href='/host') 숙소등록
           li
-            a(href='/host') Trip
+            a(href='/host/myhosting') 내 호스팅
           li
-            a(href='/signin') Signin
+            a(href='/reserve') 예약 목록
           li
-            a(href='/users/new') Signup
+            a(href='/signin') 로그인
+          li
+            a(href='/users/new') 회원가입
         
         
           

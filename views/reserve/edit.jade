@@ -1,0 +1,30 @@
+extends ../layout
+
+block content
+  .container
+    if !post.id
+      h1.page-header 숙소 예약 수정
+    else
+      h1.page-header 숙소 예약
+
+    form(action = (!post.id) ? "/host/#{post.id}?_method=PUT" : "/reserve/#{post.id}", method='POST')
+      h1= post.title
+      h3 by #{post.email}
+      .well= post.content
+      .form-group.form-inline
+        label(for='persons') 인원
+        select.form-control(name='persons')
+          option(value='1', selected) 1명
+          option(value='2') 2명
+          option(value='3') 3명
+          option(value='4') 4명   
+        .form-group
+          label(for='checkin') 체크인
+          input(type="date")
+          | 
+          label(for='checkout') 체크아웃
+          input(type="date")
+      div.form-actions
+        a.btn.btn-default(href='javascript:window.history.back();') 뒤로 
+        | 
+        button.btn.btn-primary(type='submit') 완료

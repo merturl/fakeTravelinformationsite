@@ -13,21 +13,38 @@ block content
         label(for='content') 내용
         textarea.form-control(name='content')
       .form-group
+        label(for='city') 도시
+        input.form-control(name='city')
+      .form-group
         label(for='address') 주소
-        input.form-control(name='address')
+        input.form-control#sample4_postcode(type='text', placeholder='우편번호')
+        input.btn.btn-primary(type='button', onclick='sample4_execDaumPostcode()', value='우편번호 찾기')
+        br
+        input.form-control#sample4_roadAddress(type='text', placeholder='도로명주소')
+        input.form-control#sample4_jibunAddress(name='address', type='text', placeholder='지번주소')
+        span#guide(style='color:#999')
+        script(type='text/javascript', src='/javascripts/daumapi.js')
       .form-group
        label(for='charge') 숙소요금
        input.form-control(name='charge')
-      .form-group
-        label(for='infrastructure') 주요시설
-        input.form-control(name='infrastructure')
       .form-group
         label(for='facility') 편의시설
         input.form-control(name='facility')
       .form-group
         label(for='rule') 이용규칙
         input.form-control(name='rule')
-      
+      .form-group
+        label(for='persons') 인원
+        select.form-control(name='persons')
+            option(value='1', selected) 1명
+            option(value='2') 2명
+            option(value='3') 3명
+            option(value='4') 4명
+      .form-group
+        label(for='day') 체크인
+        input(type="date", name="checkin")
+        label(for='day') 체크아웃
+        input(type="date" name="checkout")
       .form-action
         a.btn.btn-default(href='javascript:window.history.back();') 뒤로 
         | &nbsp;

@@ -7,44 +7,27 @@ block hero-unit
 
 block content
   .container
+    h1 도시 검색
     .form
-      h1 숙소 검색
-      .col-sm-3
-        input.form-control(type='text', id='q', size=20, placeholder='위치')
-      .col-sm-3
-        input.form-control(type='text', id='q', size=20, placeholder='날짜')
-      .col-sm-3
-        input.form-control(type='text', id='q', size=20, placeholder='인원')
-        
+      input.form-control(type='text', id='q', size=20, placeholder='Type your country')
       i.fa.fa-spin.fa-spinner
       ul.suggest-box
       br
+      script(type='text/javascript', src='/javascripts/autocomplete.js')
 
     h1 숙소
-    table.table
-      tr
-        th 제목
-        th 내용
-        th 작성일
-        th 주소
-        th 숙소요금
-        th 편의시설
-        th 이용규칙
+      br
+      br
       each host in hosts
-        tr
-          td
-            a(href='/host/#{host.id}')= host.title
-          td= host.content
-          td= moment(host.createdAt).format('YYYY/MM/DD')
-          td= host.address
-          td= host.charge
-          td= host.infrastructure
-          td= host.facility
-          td= host.rule
-            a.btn.btn-xs.btn-default(href='') 예약
-            | 
-            a.btn.btn-xs.btn-default(data-id=host.id, class='delete') 취소
-          
+        .col-sm-5q.col-md-3
+          a.thumbnail(href='/host/#{host.id}')
+            img.img-responsive(src="http://cfile25.uf.tistory.com/image/2712484255E46EF4130A55")
+          h5 #{host.city}에 위치한 #{host.charge}
+          | 
+          a.btn.btn-lm.btn-primary(href='/reserve/#{host.id}') 예약
+          p
+          br
+
 form#deleteForm(style='display:none', method="POST")       
 script(type='text/javascript').
   $(".delete").click(function(e) {
@@ -54,4 +37,4 @@ script(type='text/javascript').
     }
     return false;
   });
-script(type='text/javascript', src='/javascripts/day.js')
+  

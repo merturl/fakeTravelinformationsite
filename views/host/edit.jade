@@ -1,26 +1,54 @@
 extends ../layout
 
+
 block content
   .container
-    if post.id
-      h1.page-header 글수정
+    if host.id
+      h1.page-header 숙소 예약 수정
     else
-      h1.page-header 글쓰기
-
-    form(action = (post.id) ? "/posts/#{post.id}?_method=PUT" : "/posts", method='POST')
+      h1.page-header 숙소 예약
+      
+    form(action = (!host.id) ? "/host/#{host.id}?_method=PUT" : "'/host'", method='POST')
       .form-group
-        label(for='email') Email address
-        input.form-control(type='email', id='email', name='email', placeholder='Email', value=post.email)
-        label(for='password') Password
-        input.form-control(type='password', id='password', name='password', placeholder='Password')
+        label(for='title') 제목
+        input.form-control(name='title')
       .form-group
-        label(for='title') Title
-        input.form-control(type='text', id='title', name='title', placeholder='title', value=post.title)
+        label(for='content') 내용
+        textarea.form-control(name='content')
       .form-group
-        label(for='content') Content
-        textarea.form-control(id='content', rows='10', name='content', placeholder='content here')= post.content
-
-      div.form-actions
+        label(for='city') 도시
+        input.form-control(name='city')
+      .form-group
+        label(for='address') 주소
+        input.form-control#sample4_postcode(type='text', placeholder='우편번호')
+        input.btn.btn-primary(type='button', onclick='sample4_execDaumPostcode()', value='우편번호 찾기')
+        br
+        input.form-control#sample4_roadAddress(type='text', placeholder='도로명주소')
+        input.form-control#sample4_jibunAddress(name='address', type='text', placeholder='지번주소')
+        span#guide(style='color:#999')
+        script(type='text/javascript', src='/javascripts/daumapi.js')
+      .form-group
+       label(for='charge') 숙소요금
+       input.form-control(name='charge')
+      .form-group
+        label(for='facility') 편의시설
+        input.form-control(name='facility')
+      .form-group
+        label(for='rule') 이용규칙
+        input.form-control(name='rule')
+      .form-group
+        label(for='persons') 인원
+        select.form-control(name='persons')
+            option(value='1', selected) 1명
+            option(value='2') 2명
+            option(value='3') 3명
+            option(value='4') 4명
+      .form-group
+        label(for='day') 체크인
+        input(type="date", name="checkin")
+        label(for='day') 체크아웃
+        input(type="date" name="checkout")
+      .form-action
         a.btn.btn-default(href='javascript:window.history.back();') 뒤로 
-        | 
-        button.btn.btn-primary(type='submit') 완료
+        | &nbsp;
+        button.btn.btn-primary(type='submit') 글작성
