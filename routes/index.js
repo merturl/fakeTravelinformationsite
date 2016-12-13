@@ -25,7 +25,7 @@ router.get('/host', needAuth, function(req, res, next) {
 });
 
 router.get('/', function(req, res, next) {
-  Host.find({}).sort({"numComment": 1}).exec(function(err, docs) {
+  Host.find({}).sort({"numComment": -1}).exec(function(err, docs) {
     if (err) {
       return next(err);
     }
