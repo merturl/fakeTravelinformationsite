@@ -30,7 +30,6 @@ block content
              a.btn.btn-sm.btn-primary(href='/reserve/#{reservation.id}/edit') 예약 수정
              | 
              a.btn.btn-sm.btn-danger(data-id=reservation.id, class='delete') 취소
-
     form#deleteForm(style='display:none', method="POST")
     script(type='text/javascript').
       $(".delete").click(function(e) {

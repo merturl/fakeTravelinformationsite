@@ -34,7 +34,7 @@ function validateForm(form, options) {
 
 router.get('/:id', needAuth, function(req, res, next) {
   Host.findById(req.params.id, function(err, post) {
-    if(post.user == req.user.id){
+    if(typeof post.user === typeof req.user.id){
       req.flash('danger', '본인의 호스팅은 예약이 불가능합니다.');
       res.redirect('/');
     }
@@ -148,7 +148,7 @@ router.put('/:id/approve', function(req, res, next) {
       return next(err);
     }
     //기존에 입력된 비밀 번호와 폼에 입력된 비밀번호가 같아야지만 수정 가능.
-    if(reserve.reserveState == "예약대기중"){
+    if(typeof reserve.reserveState ===typeof "예약대기중"){
       reserve.reserveState ="예약승인";
     }
     reserve.save(function(err) {

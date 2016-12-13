@@ -22,21 +22,44 @@ block content
         .col-sm-5q.col-md-3
           a.thumbnail(href='/host/#{host.id}')
             img.img-responsive(src="http://cfile25.uf.tistory.com/image/2712484255E46EF4130A55")
-          h5 #{host.charge}원 #{host.city}에 위치한 
+          h4 #{host.charge}원 #{host.city}에위치  
+          h4 #{host.reservation} 
           | 
           h5 댓글#{host.numComment}개, 조회수 #{host.read}회
           | 
           a.btn.btn-lm.btn-primary(href='/reserve/#{host.id}') 예약
           p
           br
-
-form#deleteForm(style='display:none', method="POST")       
-script(type='text/javascript').
-  $(".delete").click(function(e) {
-    var id = $(e.currentTarget).data('id');
-    if (confirm('정말 삭제하시겠습니까?')) {
-      $("#deleteForm").attr('action', "/host/" + id + "?_method=DELETE").submit();          
-    }
-    return false;
-  });
-  
+    .col-sm-8
+      h1 숙소 위치
+      br
+      #map(style='width:50%;height:350px;')
+      script.
+        var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+        mapOption = {
+        center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 20 // 지도의 확대 레벨
+        };
+        // 지도를 생성합니다
+        var map = new daum.maps.Map(mapContainer, mapOption);
+        // 주소-좌표 변환 객체를 생성합니다
+        var geocoder = new daum.maps.services.Geocoder();
+        // 주소로 좌표를 검색합니다
+        var host = !{JSON.stringify(hosts)};
+        for(var i=0; i<host.length; i++) {
+          geocoder.addr2coord(host[i].address, function(status, result) {
+          // 정상적으로 검색이 완료됐으면
+          if (status === daum.maps.services.Status.OK) {
+          var coords = new daum.maps.LatLng(result.addr[0].lat, result.addr[0].lng);
+          // 결과값으로 받은 위치를 마커로 표시합니다
+          var marker = new daum.maps.Marker({
+          map: map,
+          position: coords
+          });
+          
+          // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+          map.setCenter(coords);
+          }
+          });
+        }
+      

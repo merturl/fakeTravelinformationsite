@@ -4,24 +4,76 @@ block content
   .container
     if post.id
       h1.page-header 숙소 예약
+      br
     form(action = '/reserve/#{post.id}', method='POST')
       h1= post.title
       h3 by #{post.email}
-      .well= post.content
+      .inline
+        p 도시 : #{post.city},  조회수 : #{post.read}, 댓글 수 : #{post.numComment}
+      br
+      p
+        h4 상세  설명
+        .well 
+          p #{post.content}
+      br
+      .col-sm-1
+        h2 숙소
+      .col-sm-4
+        p 편의시설 : #{post.facility}
+        p 규칙 : #{post.rule}
+        p 예약상태 : #{post.reservation}
+        p 수용 가능 인원 :#{post.persons} 명
+        p 체크인 날짜 : #{moment(post.checkin).format('YYYY/MM/DD')}
+        p 체크아웃 날짜 : #{moment(post.checkout).format('YYYY/MM/DD')}
+        p 주소 : #{post.address}
+      .col-sm-3
+      div 수용 가능 인원 :#{post.persons} 명
       .form-group.form-inline
         label(for='persons') 인원
         select.form-control(name='persons')
           option(value='1', selected) 1명
           option(value='2') 2명
           option(value='3') 3명
-          option(value='4') 4명   
-        .form-group
-          label(for='checkin') 체크인
-          input(type="date", name='checkin')
-          | 
-          label(for='checkout') 체크아웃
-          input(type="date",name='checkout')
+          option(value='4') 4명
+      .form-group.form-inline
+        label(for='checkin') 체크인
+        input.form-control(type="date", name='checkin')
+        | 
+        label(for='checkout') 체크아웃
+        input.form-control(type="date",name='checkout')
+      #map(style='width:100%;height:350px;')
+      .row
       div.form-actions
         a.btn.btn-default(href='javascript:window.history.back();') 뒤로 
         | 
         button.btn.btn-primary(type='submit') 완료
+      
+      script.
+        var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+        mapOption = {
+        center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+        };
+        // 지도를 생성합니다
+        var map = new daum.maps.Map(mapContainer, mapOption);
+        // 주소-좌표 변환 객체를 생성합니다
+        var geocoder = new daum.maps.services.Geocoder();
+        // 주소로 좌표를 검색합니다
+        geocoder.addr2coord('#{post.address}', function(status, result) {
+        // 정상적으로 검색이 완료됐으면
+        if (status === daum.maps.services.Status.OK) {
+        var coords = new daum.maps.LatLng(result.addr[0].lat, result.addr[0].lng);
+        // 결과값으로 받은 위치를 마커로 표시합니다
+        var marker = new daum.maps.Marker({
+        map: map,
+        position: coords
+        });
+        // 인포윈도우로 장소에 대한 설명을 표시합니다
+        var infowindow = new daum.maps.InfoWindow({
+        content: '<div style="width:150px;text-align:center;padding:6px 0;">숙소 위치</div>'
+        });
+        infowindow.open(map, marker);
+        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+        map.setCenter(coords);
+        }
+        });

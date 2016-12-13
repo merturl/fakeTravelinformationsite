@@ -79,12 +79,12 @@ router.put('/:id', function(req, res, next) {
       return next(err);
     }
     if (!user) {
-      req.flash('danger', '존재하지 않는 사용자입니다.');
+      req.flash('danger', '이메일과 비밀번호를 확인해주세요.');
       return res.redirect('back');
     }
 
     if (!user.validatePassword(req.body.current_password)) {
-      req.flash('danger', '현재 비밀번호가 일치하지 않습니다.');
+      req.flash('danger', '이메일과 비밀번호를 확인해주세요.');
       return res.redirect('back');
     }
 

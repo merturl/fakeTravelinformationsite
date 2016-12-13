@@ -3,10 +3,37 @@ extends ../layout
 block content
   .container
     h1= host.title
-    h3 by #{host.email}
-    .well= host.content
+    h3 제공자 #{host.email}
+    .inline
+        p 도시 : #{host.city},  조회수 : #{host.read}, 댓글 수 : #{host.numComment}
+    br
+    h2 예약 상태 : #{host.reservation}
+    br
+    p
+    h3 상세설명
+    .well
+      p #{host.content}
+    br
+    h3 주소
+    .well
+        p 도시 : #{host.city}
+        p 주소 : #{host.address}
+    br
+    h4 주요 시설
+    .well
+        p 편의시설 : #{host.facility}
+        p 규칙 : #{host.rule}
+        p 가격 : #{host.charge}
+       
+        p 수용 가능 인원 : #{host.persons}
+      h3
+        p 체크인 날짜 : #{moment(host.checkin).format('YYYY/MM/DD')}
+        p 체크아웃 날짜 : #{moment(host.checkout).format('YYYY/MM/DD')}
+    br
+    br
+    h2 위치
+    #map(style='width:100%;height:350px;')
     | 
-    #map(style='width:50%;height:350px;')
     hr
     h3 Comment (#{host.numComment})
     table.table
@@ -32,7 +59,6 @@ block content
     hr
     a.btn.btn-primary(href='/reserve/#{host.id}') 예약
     a.btn.btn-default(href='/') 목록
-      script(type='text/javascript', src='//apis.daum.net/maps/maps3.js?apikey=a4287f20f1f62baffa9cc8119e58fffa&libraries=services')
       script.
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div
         mapOption = {
@@ -55,7 +81,7 @@ block content
         });
         // 인포윈도우로 장소에 대한 설명을 표시합니다
         var infowindow = new daum.maps.InfoWindow({
-        content: '<div style="width:150px;text-align:center;padding:6px 0;">장소</div>'
+        content: '<div style="width:150px;text-align:center;padding:6px 0;">숙소 위치</div>'
         });
         infowindow.open(map, marker);
         // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
