@@ -5,7 +5,7 @@ block content
     if reserve.id
       h1.page-header 예약 수정
 
-    form(action ='/reserve/#{reserve.id}?_method=PUT',  method='POST')
+    form(action ='/reserve/#{reserve.id}/edit?_method=PUT',  method='POST')
       h1= reserve.title
       h3 by #{reserve.hostemail}
       .form-group.form-inline

@@ -3,10 +3,9 @@ extends ../layout
 block content
   .container
     hr
-    h1 #{currentUser.name}의 예약 신청 목록
+    h1 예약 신청받은 목록
     table.table
       tr
-        th 호스트 이메일
         th 예약자 이메일
         th 제목
         th 가격
@@ -17,7 +16,6 @@ block content
         th
       each reservation in reservations
         tr
-          td= reservation.hostemail
           td= reservation.email
           td
             a(href='/host/#{reservation.post}')= reservation.title
@@ -26,10 +24,15 @@ block content
           td= moment(reservation.checkin).format('YYYY-MM-DD HH:mm:ss')
           td= moment(reservation.checkout).format('YYYY-MM-DD HH:mm:ss')
           td= reservation.reserveState
-          td 
-             a.btn.btn-sm.btn-primary(href='/reserve/#{reservation.id}/edit') 예약 수정
-             | 
-             a.btn.btn-sm.btn-danger(data-id=reservation.id, class='delete') 취소
+          td
+            if (reservation.reserveState != "예약승인")
+                form(action='/reserve/#{reservation.id}/approve?_method=PUT',method="POST")
+                    button.btn-sm.btn-primary#btnSubmit(type="submit") 예약 승인
+                    | 
+                    a.btn.btn-sm.btn-danger(data-id=reservation.id, class='delete') 취소
+            else
+                a.btn.btn-sm.btn-danger(data-id=reservation.id, class='delete') 삭제
+            
 
     form#deleteForm(style='display:none', method="POST")
     script(type='text/javascript').

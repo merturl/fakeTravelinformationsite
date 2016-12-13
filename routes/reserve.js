@@ -17,10 +17,10 @@ function needAuth(req, res, next) {
 function validateForm(form, options) {
   var persons = form.persons || "";
   var checkin = form.checkin || "";
-  var checkout = form.checkout || "";;
+  var checkout = form.checkout || "";
 
     if (!persons) {
-        return '인원수르 선택해주세요';
+        return '인원을 선택해주세요';
     }
     if(!checkin){
         return '체크인 날짜를 선택해주세요.';
@@ -60,12 +60,16 @@ router.get('/', needAuth, function(req, res, next) {
     if (err) {
       return next(err);
     }
-    Host.find({_id:reservations.post}, function(err, host) {
-        if (err) {
-          return next(err);
-        }
-        res.render('reserve/show', {reservations: reservations, host: host});
-      });
+        res.render('reserve/show', {reservations: reservations});
+  });
+});
+
+router.get('/:id/approve', needAuth, function(req, res, next) {
+  Reservation.find({post:req.params.id}, function(err, reservations) {
+    if (err) {
+      return next(err);
+    }
+        res.render('reserve/approve', {reservations: reservations});
   });
 });
 
@@ -119,29 +123,39 @@ router.put('/:id/edit', function(req, res, next) {
     return res.redirect('back');
   }
   //DB의 Post에서 Id를 찾아 비밀번호를 비교 맞을시 해당 Id의 내용들을 수정 하고 저장함.
-  Host.findById({_id: req.params.id}, function(err, host) {
+  Reservation.findById({_id: req.params.id}, function(err, reserve) {
     if (err) {
       return next(err);
     }
-    if (!host) {
-      return res.redirect('back');
-    }
     //기존에 입력된 비밀 번호와 폼에 입력된 비밀번호가 같아야지만 수정 가능.
-    title= req.body.title
-    content = req.body.content || "내용 없음";
-    city = req.body.city;
-    charge = req.body.charge;
-    address = req.body.address;
-    facility = req.body.facility || "없음";
-    rule = req.body.rule || "없음";
-    persons = req.body.persons;
-    checkin = req.body.checkin;
-    checkout = req.body.checkout;
-    host.save(function(err) {
+    reserve.persons = req.body.persons;
+    reserve.checkin = req.body.checkin;
+    reserve.checkout = req.body.checkout;
+    reserve.reserveState ="예약대기중";
+    reserve.save(function(err) {
       if (err) {
         return next(err);
       }
-      res.redirect('/',{host: host});
+      res.redirect('/reserve');
+    });
+  });
+});
+
+router.put('/:id/approve', function(req, res, next) {
+  //DB의 Post에서 Id를 찾아 비밀번호를 비교 맞을시 해당 Id의 내용들을 수정 하고 저장함.
+  Reservation.findById({_id: req.params.id}, function(err, reserve) {
+    if (err) {
+      return next(err);
+    }
+    //기존에 입력된 비밀 번호와 폼에 입력된 비밀번호가 같아야지만 수정 가능.
+    if(reserve.reserveState == "예약대기중"){
+      reserve.reserveState ="예약승인";
+    }
+    reserve.save(function(err) {
+      if (err) {
+        return next(err);
+      }
+      res.redirect('back');
     });
   });
 });

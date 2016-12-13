@@ -2,7 +2,7 @@ extends ../layout
 
 block content
   .container
-    h1.page-header 나의 예약 목록
+    h1.page-header 나의 호스팅 목록
     
     table.table.table-bordered
       thead
@@ -26,6 +26,8 @@ block content
               a.btn.btn-sm.btn-primary(href='/host/#{host.id}/edit') 수정
               | 
               a.btn.btn-sm.btn-danger(data-id=host.id, class='delete') 삭제
+              | 
+              a.btn.btn-sm.btn-default(href='/reserve/#{host.id}/approve') 예약 관리
 
 
     form#deleteForm(style='display:none', method="POST")

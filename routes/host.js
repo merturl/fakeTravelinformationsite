@@ -119,7 +119,7 @@ router.get('/:id/edit', function(req, res, next) {
     if (!host) {
       return res.redirect('back');
     }
-    host.title= req.body.title
+    host.title= req.body.title;
     host.content = req.body.content || "내용 없음";
     host.city = req.body.city;
     host.charge = req.body.charge;
