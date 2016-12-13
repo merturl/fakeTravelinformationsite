@@ -23,40 +23,6 @@ block content
         input.form-control#sample4_roadAddress(type='text', placeholder='도로명주소')
         input.form-control#sample4_jibunAddress(name='address', type='text', placeholder='지번주소')
         span#guide(style='color:#999')
-      .form-group
-       label(for='charge') 숙소요금
-       input.form-control(name='charge')
-      .form-group
-        label(for='facility') 편의시설
-        input.form-control(name='facility')
-      .form-group
-        label(for='rule') 이용규칙
-        input.form-control(name='rule')
-      .form-group
-        label(for='persons') 인원
-        select.form-control(name='persons')
-            option(value='1', selected) 1명
-            option(value='2') 2명
-            option(value='3') 3명
-            option(value='4') 4명
-      .form-group
-        label(for='day') 체크인
-        input(type="date", name="checkin")
-        label(for='day') 체크아웃
-        input(type="date" name="checkout")
-      .form-action
-        a.btn.btn-default(href='javascript:window.history.back();') 뒤로 
-        | &nbsp;
-        button.btn.btn-primary(type='submit') 글작성
-
-        .form-group
-        label(for='address') 주소
-        input#sample4_postcode(type='text', placeholder='우편번호')
-        input(type='button', onclick='sample4_execDaumPostcode()', value='우편번호 찾기')
-        br
-        input#sample4_roadAddress(type='text', placeholder='도로명주소')
-        input#sample4_jibunAddress(name='address', type='text', placeholder='지번주소')
-        span#guide(style='color:#999')
         script.
           //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
           function sample4_execDaumPostcode() {
@@ -102,3 +68,29 @@ block content
           }
           }).open();
           }
+      .form-group
+       label(for='charge') 숙소요금
+       input.form-control(name='charge')
+      .form-group
+        label(for='facility') 편의시설
+        input.form-control(name='facility')
+      .form-group
+        label(for='rule') 이용규칙
+        input.form-control(name='rule')
+      .form-group
+        label(for='persons') 인원
+        select.form-control(name='persons')
+            option(value='1', selected) 1명
+            option(value='2') 2명
+            option(value='3') 3명
+            option(value='4') 4명
+      .form-group
+        label(for='day') 체크인
+        input(type="date", name="checkin")
+        label(for='day') 체크아웃
+        input(type="date" name="checkout")
+      .form-action
+        a.btn.btn-default(href='javascript:window.history.back();') 뒤로 
+        | &nbsp;
+        button.btn.btn-primary(type='submit') 글작성
+        
