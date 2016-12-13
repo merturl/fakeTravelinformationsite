@@ -17,11 +17,11 @@ block content
         input.form-control(name='city')
       .form-group
         label(for='address') 주소
-        input#sample4_postcode(type='text', placeholder='우편번호')
+        input.form-control#sample4_postcode(type='text', placeholder='우편번호')
         input(type='button', onclick='sample4_execDaumPostcode()', value='우편번호 찾기')
         br
-        input#sample4_roadAddress(type='text', placeholder='도로명주소')
-        input#sample4_jibunAddress(name='address', type='text', placeholder='지번주소')
+        input.form-control#sample4_roadAddress(type='text', placeholder='도로명주소')
+        input.form-control#sample4_jibunAddress(name='address', type='text', placeholder='지번주소')
         span#guide(style='color:#999')
         script(src='http://dmaps.daum.net/map_js_init/postcode.v2.js')
         script(src='https://spi.maps.daum.net/imap/map_js_init/postcode.v2.js')
@@ -70,7 +70,7 @@ block content
               }
             }).open();
           }
-          
+
       .form-group
        label(for='charge') 숙소요금
        input.form-control(name='charge')
