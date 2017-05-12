@@ -12,7 +12,7 @@
 ##(Option) Facebook 로그인
 ##(Option) 비밀번호 수정, 회원 정보 수정
 ##(Option) 비밀번호 재설정 이메일 전송 기능
-
+##test
 
 #2. 숙소 등록
 
